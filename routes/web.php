@@ -14,5 +14,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::view('about', 'about')->name('about')->middleware('auth');
 
 Route::group(['middleware' => 'auth.basic'], function() {
-    Route::resource('todo', TodoController::class)->except('show');
+    Route::resource('todo', TodoController::class)->except(['show', 'create']);
 });

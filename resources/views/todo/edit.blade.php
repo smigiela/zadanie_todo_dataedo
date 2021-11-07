@@ -26,7 +26,7 @@
                 </div>
             </div>
             <!-- end input -->
-            <button type="submit" class="btn-outline-success">Zapisz</button>
+            <button type="submit" class="btn btn-outline-success">Zapisz</button>
         </form>
     </div>
 @endsection

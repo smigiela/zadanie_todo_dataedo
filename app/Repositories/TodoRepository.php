@@ -12,7 +12,7 @@ class TodoRepository
      */
     public function getAll($limit)
     {
-        return Todo::orderBy('status')->paginate($limit);
+        return Todo::where('user_id', auth()->id())->orderBy('status')->paginate($limit);
     }
 
     /**
@@ -21,7 +21,7 @@ class TodoRepository
      */
     public function getById($id)
     {
-         return Todo::findOrFail($id);
+         return Todo::where('user_id', auth()->id())->findOrFail($id);
     }
 
     /**
@@ -39,7 +39,7 @@ class TodoRepository
      */
     public function update($id, array $validated_data)
     {
-         Todo::findOrFail($id)->update($validated_data);
+         Todo::where('user_id', auth()->id())->findOrFail($id)->update($validated_data);
     }
 
     /**
@@ -47,6 +47,6 @@ class TodoRepository
      */
     public function delete($id)
     {
-        Todo::findOrFail($id)->delete();
+        Todo::where('user_id', auth()->id())->findOrFail($id)->delete();
     }
 }

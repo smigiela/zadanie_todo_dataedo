@@ -10,6 +10,7 @@ class TodoObserver
     {
         $todo->user_id = auth()->id();
     }
+
     /**
      * Handle the Todo "created" event.
      *

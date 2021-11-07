@@ -16,25 +16,15 @@ class TodoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
         $todos = $this->repository->getAll(5);
 
-        return view('todo.index', compact('todos'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
-    public function create()
-    {
         $statuses = Todo::$todo_statuses;
 
-        return view('todo.create', compact('statuses'));
+        return view('todo.index', compact('todos', 'statuses'));
     }
 
     /**
@@ -49,17 +39,19 @@ class TodoController extends Controller
 
         $this->repository->save($validated);
 
-        return redirect()->route('todo.index');
+        return redirect()->route('todo.index')->with('message', 'Poprawnie dodano zadanie.');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Todo  $todo
+     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(Todo $todo)
+    public function edit($id)
     {
+        $todo = $this->repository->getById($id);
+
         $statuses = Todo::$todo_statuses;
 
         return view('todo.edit', compact('todo', 'statuses'));
@@ -68,15 +60,15 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Todo  $todo
+     * @param TodoStoreRequest $request
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(TodoStoreRequest $request, Todo $todo)
+    public function update(TodoStoreRequest $request, $id)
     {
         $validated = $request->validated();
 
-        $this->repository->update($todo->id, $validated);
+        $this->repository->update($id, $validated);
 
         return redirect()->route('todo.index');
     }
@@ -84,12 +76,12 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Todo  $todo
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Todo $todo)
+    public function destroy($id)
     {
-        $this->repository->delete($todo->id);
+        $this->repository->delete($id);
 
         return redirect()->route('todo.index');
     }

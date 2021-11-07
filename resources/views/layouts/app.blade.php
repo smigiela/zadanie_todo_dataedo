@@ -84,6 +84,10 @@
     <!-- ========== section start ========== -->
     <section class="section">
         <div class="container-fluid">
+            <div class="mt-25">
+                @include('partials.messages')
+
+            </div>
             @yield('content')
         </div>
         <!-- end container -->
