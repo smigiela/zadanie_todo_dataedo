@@ -39,7 +39,9 @@ class TodoController extends Controller
 
         $this->repository->save($validated);
 
-        return redirect()->route('todo.index')->with('message', 'Poprawnie dodano zadanie.');
+        return redirect()->route('todo.index')
+            ->with('message', 'Poprawnie dodano zadanie.')
+            ->setStatusCode(201);
     }
 
     /**
@@ -70,7 +72,9 @@ class TodoController extends Controller
 
         $this->repository->update($id, $validated);
 
-        return redirect()->route('todo.index');
+        return redirect()->route('todo.index')
+            ->with('message', 'Poprawnie zaktualizowano!')
+            ->setStatusCode(200);
     }
 
     /**
@@ -83,6 +87,6 @@ class TodoController extends Controller
     {
         $this->repository->delete($id);
 
-        return redirect()->route('todo.index');
+        return redirect()->route('todo.index')->with('message', 'Usunięto poprawnie');
     }
 }
