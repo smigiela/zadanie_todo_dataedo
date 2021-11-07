@@ -15,7 +15,7 @@ Instalacja paczek ```composer install``` <br />
 Instalacja node_modules i kompilacja styli```npm install && npm run dev``` <br />
 
 ### Wersja online
-URL: http://todo.dev-pasja.pl
-Login: 
+URL: http://todo.dev-pasja.pl <br />
+Login: alex.hintz@example.net <br />
 Hasło: password
 
